@@ -18,6 +18,10 @@
 
   --nav-height: 60px;
   --color-nav-bg: rgba(231, 227, 218, 0.88);
+
+  /* Panels (height / weight boxes) and notice callouts */
+  --color-panel: rgba(231, 227, 218, 0.4);
+  --color-notice: rgba(231, 227, 218, 0.7);
 }
 
 [data-theme='dark'] {
@@ -30,11 +34,11 @@
   --color-rule: rgba(236, 232, 223, 0.14);
   --color-rule-heavy: rgba(236, 232, 223, 0.28);
   --color-nav-bg: rgba(21, 20, 19, 0.88);
-}
 
-[data-theme='dark'] .hero-subject-wrapper video {
-  mix-blend-mode: screen;
-  filter: invert(1);
+  /* Readable panels in dark mode */
+  --color-panel: #1D1B19;
+  --color-notice: rgba(224, 83, 50, 0.14);
+  color-scheme: dark;
 }
 
 /* Reset & Universal defaults */
@@ -259,6 +263,17 @@ a:focus-visible {
 
 .input-editorial.error {
   border-color: var(--color-accent);
+}
+
+.input-editorial::placeholder {
+  color: var(--color-muted);
+  opacity: 1;
+}
+
+/* Dropdown list readable in both themes */
+select option {
+  background-color: var(--color-ground);
+  color: var(--color-ink);
 }
 
 /* Tooltip accessible styling */
