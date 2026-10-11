@@ -318,7 +318,7 @@ export const BMICalculator: React.FC<BMICalculatorProps> = ({
                     marginTop: '6px',
                   }}
                 >
-                  Adult formula formula (kg/m²) is identical across sexes.
+                  Adult formula (kg/m²) is identical across sexes.
                 </span>
               </div>
             </div>
@@ -328,7 +328,7 @@ export const BMICalculator: React.FC<BMICalculatorProps> = ({
               style={{
                 border: '1px solid var(--color-rule)',
                 padding: '20px',
-                backgroundColor: 'rgba(231, 227, 218, 0.4)',
+                backgroundColor: 'var(--color-panel)',
               }}
             >
               <div
@@ -496,7 +496,7 @@ export const BMICalculator: React.FC<BMICalculatorProps> = ({
               style={{
                 border: '1px solid var(--color-rule)',
                 padding: '20px',
-                backgroundColor: 'rgba(231, 227, 218, 0.4)',
+                backgroundColor: 'var(--color-panel)',
               }}
             >
               <div
@@ -775,7 +775,7 @@ export const BMICalculator: React.FC<BMICalculatorProps> = ({
                 marginTop: '28px',
                 padding: '16px',
                 borderLeft: '2px solid var(--color-accent)',
-                backgroundColor: 'rgba(231, 227, 218, 0.7)',
+                backgroundColor: 'var(--color-notice)',
               }}
             >
               <p
