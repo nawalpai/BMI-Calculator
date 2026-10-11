@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
+import type { ThemeMode } from '../types/bmi'
 
 interface NavbarProps {
   onCalculateClick: () => void
+  theme: ThemeMode
+  onToggleTheme: () => void
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onCalculateClick }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onCalculateClick,
+  theme,
+  onToggleTheme,
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const handleNavClick = (id: string) => {
@@ -23,13 +30,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onCalculateClick }) => {
         left: 0,
         right: 0,
         height: 'var(--nav-height)',
-        backgroundColor: 'rgba(231, 227, 218, 0.88)',
+        backgroundColor: 'var(--color-nav-bg)',
         backdropFilter: 'blur(14px)',
         WebkitBackdropFilter: 'blur(14px)',
         zIndex: 100,
         borderBottom: '1px solid var(--color-rule)',
         display: 'flex',
         alignItems: 'center',
+        transition: 'background-color 0.25s ease',
       }}
       className="no-print"
       role="banner"
@@ -71,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onCalculateClick }) => {
           style={{
             display: 'none',
             alignItems: 'center',
-            gap: '32px',
+            gap: '28px',
           }}
           className="desktop-nav"
           aria-label="Main Navigation"
@@ -85,6 +93,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onCalculateClick }) => {
             }}
           >
             Calculator
+          </a>
+          <a
+            href="#history"
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault()
+              handleNavClick('history')
+            }}
+          >
+            History
           </a>
           <a
             href="#method"
@@ -114,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onCalculateClick }) => {
               handleNavClick('reference')
             }}
           >
-            Reference Range
+            Reference
           </a>
           <a
             href="#habits"
@@ -124,7 +142,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onCalculateClick }) => {
               handleNavClick('habits')
             }}
           >
-            Healthy Habits
+            Habits
           </a>
           <a
             href="#about"
@@ -138,8 +156,31 @@ export const Navbar: React.FC<NavbarProps> = ({ onCalculateClick }) => {
           </a>
         </nav>
 
-        {/* Action Button & Mobile Menu Toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        {/* Action Button, Theme Toggle & Mobile Menu Toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Dark/Light Mode Switcher */}
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--color-rule-heavy)',
+              padding: '7px 12px',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '10px',
+              letterSpacing: '0.12em',
+              color: 'var(--color-ink)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+            title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+            aria-label={`Toggle theme, current is ${theme}`}
+          >
+            <span>{theme === 'light' ? '◐ DARK' : '☼ LIGHT'}</span>
+          </button>
+
           <button
             type="button"
             className="btn-primary"
@@ -202,6 +243,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onCalculateClick }) => {
             Calculator
           </a>
           <a
+            href="#history"
+            className="nav-link"
+            onClick={(e) => {
+              e.preventDefault()
+              handleNavClick('history')
+            }}
+          >
+            History &amp; Charts
+          </a>
+          <a
             href="#method"
             className="nav-link"
             onClick={(e) => {
@@ -251,6 +302,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onCalculateClick }) => {
           >
             About
           </a>
+
+          <div style={{ borderTop: '1px solid var(--color-rule)', paddingTop: '16px' }}>
+            <button
+              type="button"
+              onClick={() => {
+                onToggleTheme()
+                setMobileMenuOpen(false)
+              }}
+              className="btn-secondary"
+              style={{ width: '100%', padding: '10px' }}
+            >
+              TOGGLE {theme === 'light' ? 'DARK' : 'LIGHT'} MODE
+            </button>
+          </div>
         </div>
       )}
 

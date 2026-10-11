@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import type { BMIResultData } from '../types/bmi'
 import { copyReportToClipboard } from '../utils/clipboard'
+import { downloadReportFile } from '../utils/history'
 import { getCategoryDescription } from '../utils/formatters'
 import { BMIScale } from './BMIScale'
 import { HealthyRangeDiagram } from './HealthyRangeDiagram'
@@ -106,7 +107,7 @@ export const BMIResult: React.FC<BMIResultProps> = ({ result }) => {
             </div>
 
             {/* Action Buttons */}
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={handleCopy}
@@ -115,6 +116,17 @@ export const BMIResult: React.FC<BMIResultProps> = ({ result }) => {
                 aria-label="Copy result report to clipboard"
               >
                 {copyFeedback ? copyFeedback : 'COPY REPORT'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => downloadReportFile(result)}
+                className="btn-secondary"
+                style={{ padding: '6px 12px', fontSize: '10px' }}
+                aria-label="Download text report file"
+                title="Download formatted text report"
+              >
+                DOWNLOAD REPORT
               </button>
 
               <button

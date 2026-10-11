@@ -3,6 +3,7 @@ export type WeightUnit = 'kg' | 'lbs'
 export type BiologicalSex = 'male' | 'female' | 'unspecified'
 export type BMICategory = 'underweight' | 'healthy' | 'overweight' | 'obesity'
 export type AgeCohort = 'infant' | 'pediatric' | 'adult'
+export type ThemeMode = 'light' | 'dark'
 
 export interface MeasurementInputs {
   age: string
@@ -51,4 +52,22 @@ export interface BMIResultData {
   calculatedAt: string
   isPediatric: boolean
   isInfant: boolean
+}
+
+export interface BMIHistoryEntry {
+  id: string
+  timestamp: number
+  dateDisplay: string
+  bmi: number
+  displayBmi: string
+  category: BMICategory
+  categoryLabel: string
+  age: number
+  sex: BiologicalSex
+  enteredHeightDisplay: string
+  enteredWeightDisplay: string
+  heightM: number
+  weightKg: number
+  heightUnit: HeightUnit
+  weightUnit: WeightUnit
 }

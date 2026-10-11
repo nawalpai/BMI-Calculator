@@ -258,7 +258,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {/* Loop video with multiply blend so white background melts seamlessly into warm ground */}
               <video
                 ref={videoRef}
-                src="./hero-video.mp4"
+                src={`${import.meta.env.BASE_URL}hero-video.mp4`}
                 autoPlay
                 loop
                 muted

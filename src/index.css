@@ -17,6 +17,24 @@
   --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   --nav-height: 60px;
+  --color-nav-bg: rgba(231, 227, 218, 0.88);
+}
+
+[data-theme='dark'] {
+  --color-ground: #151413;
+  --color-ground-secondary: #201E1B;
+  --color-ink: #ECE8DF;
+  --color-ink-secondary: #B6B1A7;
+  --color-muted: #878278;
+  --color-accent: #E05332;
+  --color-rule: rgba(236, 232, 223, 0.14);
+  --color-rule-heavy: rgba(236, 232, 223, 0.28);
+  --color-nav-bg: rgba(21, 20, 19, 0.88);
+}
+
+[data-theme='dark'] .hero-subject-wrapper video {
+  mix-blend-mode: screen;
+  filter: invert(1);
 }
 
 /* Reset & Universal defaults */

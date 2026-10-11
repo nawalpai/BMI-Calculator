@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import type {
+  BMIHistoryEntry,
   BMIResultData,
   BiologicalSex,
   HeightUnit,
@@ -17,15 +18,54 @@ import { clearSavedMeasurements, saveMeasurements } from '../utils/storage'
 interface BMICalculatorProps {
   initialInputs: MeasurementInputs
   onResultCalculated: (result: BMIResultData | null) => void
+  selectedHistoryEntry?: BMIHistoryEntry | null
 }
 
 export const BMICalculator: React.FC<BMICalculatorProps> = ({
   initialInputs,
   onResultCalculated,
+  selectedHistoryEntry,
 }) => {
   const [inputs, setInputs] = useState<MeasurementInputs>(initialInputs)
+  const [prevSelectedEntry, setPrevSelectedEntry] = useState<BMIHistoryEntry | null>(null)
   const [errors, setErrors] = useState<ValidationErrors>({})
   const [hasCalculated, setHasCalculated] = useState(false)
+
+  // Sync with selected history reload request
+  if (selectedHistoryEntry && selectedHistoryEntry !== prevSelectedEntry) {
+    setPrevSelectedEntry(selectedHistoryEntry)
+    let cm = ''
+    let ft = ''
+    let inch = ''
+    if (selectedHistoryEntry.heightUnit === 'cm') {
+      cm = Math.round(selectedHistoryEntry.heightM * 100).toString()
+    } else {
+      const totalInches = selectedHistoryEntry.heightM / 0.0254
+      ft = Math.floor(totalInches / 12).toString()
+      inch = (Math.round((totalInches % 12) * 10) / 10).toString()
+    }
+
+    let kg = ''
+    let lbs = ''
+    if (selectedHistoryEntry.weightUnit === 'kg') {
+      kg = selectedHistoryEntry.weightKg.toFixed(1)
+    } else {
+      lbs = (selectedHistoryEntry.weightKg * 2.20462).toFixed(1)
+    }
+
+    setInputs((prev: MeasurementInputs) => ({
+      ...prev,
+      age: selectedHistoryEntry.age.toString(),
+      sex: selectedHistoryEntry.sex,
+      heightUnit: selectedHistoryEntry.heightUnit,
+      weightUnit: selectedHistoryEntry.weightUnit,
+      heightCm: cm,
+      heightFt: ft,
+      heightIn: inch,
+      weightKg: kg,
+      weightLbs: lbs,
+    }))
+  }
 
   // Height Unit Switcher
   const handleHeightUnitChange = (newUnit: HeightUnit) => {
@@ -83,13 +123,13 @@ export const BMICalculator: React.FC<BMICalculatorProps> = ({
     }
   }
 
-  const handleInputChange = (field: keyof MeasurementInputs, value: any) => {
+  const handleInputChange = (field: keyof MeasurementInputs, value: string | boolean | BiologicalSex) => {
     const updated = { ...inputs, [field]: value }
     setInputs(updated)
 
     // Clear inline error on change
     if (errors[field as keyof ValidationErrors]) {
-      setErrors((prev) => ({ ...prev, [field]: undefined }))
+      setErrors((prev: ValidationErrors) => ({ ...prev, [field]: undefined }))
     }
 
     if (updated.saveLocally) {
