@@ -1,0 +1,303 @@
+/* ==========================================================================
+   FORM / BMI — DESIGN SYSTEM TOKENS & EDITORIAL STYLES
+   ========================================================================== */
+
+:root {
+  --color-ground: #E7E3DA;
+  --color-ground-secondary: #DCD7CB;
+  --color-ink: #1A1917;
+  --color-ink-secondary: #4A4741;
+  --color-muted: #6E6A61;
+  --color-accent: #9B3418; /* Oxide pigment: strictly for type, rules, markers */
+  --color-rule: rgba(26, 25, 23, 0.16);
+  --color-rule-heavy: rgba(26, 25, 23, 0.32);
+
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'Azeret Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --nav-height: 60px;
+}
+
+/* Reset & Universal defaults */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important; /* Strict studio rule: square corners everywhere */
+}
+
+html {
+  font-size: 16px;
+  background-color: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 16px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-ground);
+  color: var(--color-ink);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Strict Typography Styles */
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.mono-lede {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+  color: var(--color-ink-secondary);
+}
+
+.mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.italic-accent {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+/* Hairline utilities */
+.hairline-b {
+  border-bottom: 1px solid var(--color-rule);
+}
+.hairline-t {
+  border-top: 1px solid var(--color-rule);
+}
+.hairline-l {
+  border-left: 1px solid var(--color-rule);
+}
+.hairline-r {
+  border-right: 1px solid var(--color-rule);
+}
+.hairline-all {
+  border: 1px solid var(--color-rule);
+}
+
+/* Button & interactive components */
+button, input, select {
+  font-family: inherit;
+  color: inherit;
+  border-radius: 0;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--color-ink);
+  color: var(--color-ground);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--color-ink-secondary);
+  border: 1px solid var(--color-rule-heavy);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Accessible focus outline */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Nav links underline behavior */
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+  text-decoration: none;
+  position: relative;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 1px;
+  background-color: var(--color-accent);
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-ink);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Section Containers */
+.section-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+@media (min-width: 1024px) {
+  .section-shell {
+    padding: 120px 48px;
+  }
+}
+
+/* Input Fields */
+.input-editorial {
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent;
+  border: 1px solid var(--color-rule-heavy);
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.input-editorial:focus {
+  border-color: var(--color-ink);
+  outline: none;
+}
+
+.input-editorial.error {
+  border-color: var(--color-accent);
+}
+
+/* Tooltip accessible styling */
+.tooltip-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-rule-heavy);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--color-muted);
+  cursor: help;
+  margin-left: 6px;
+  position: relative;
+  background: transparent;
+}
+
+.tooltip-trigger:hover,
+.tooltip-trigger:focus {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Print Specific Rules (Part 19, 27) */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 12pt;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .section-shell {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+.print-only {
+  display: none;
+}
+
+/* Reduced Motion Mode (Part 20, 24) */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

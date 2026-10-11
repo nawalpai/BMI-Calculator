@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Warm bone ground -->
+  <rect width="64" height="64" fill="#E7E3DA" />
+  <!-- Hairline inner frame -->
+  <rect x="3.5" y="3.5" width="57" height="57" fill="none" stroke="#1A1917" stroke-width="1.5" stroke-opacity="0.8" />
+  
+  <!-- Architectural F with precise proportion and serif discipline -->
+  <path d="M 18 16 L 42 16 L 42 21 L 24 21 L 24 30 L 38 30 L 38 35 L 24 35 L 24 48 L 18 48 Z" fill="#1A1917" />
+  
+  <!-- Precision hairline vertical caliper rule -->
+  <line x1="47" y1="16" x2="47" y2="48" stroke="#1A1917" stroke-width="1" stroke-opacity="0.4" />
+  <line x1="44" y1="16" x2="47" y2="16" stroke="#1A1917" stroke-width="1" stroke-opacity="0.5" />
+  <line x1="44" y1="32" x2="47" y2="32" stroke="#1A1917" stroke-width="1" stroke-opacity="0.5" />
+  <line x1="44" y1="48" x2="47" y2="48" stroke="#1A1917" stroke-width="1" stroke-opacity="0.5" />
+
+  <!-- Signature oxide pigment point / marker -->
+  <circle cx="47" cy="27" r="3.5" fill="#9B3418" />
+</svg>
