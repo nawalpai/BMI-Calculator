@@ -197,7 +197,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               className="hero-wordmark"
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(78px, 12vw, 154px)',
+                fontSize: 'clamp(56px, 8vw, 104px)',
                 lineHeight: 0.82,
                 color: 'var(--color-ink)',
                 userSelect: 'none',
@@ -206,14 +206,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 transition: prefersReducedMotion ? 'none' : 'transform 0.05s linear',
               }}
             >
-              FORM
+              BMI
             </div>
 
             <div
               className="hero-wordmark"
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(78px, 12vw, 154px)',
+                fontSize: 'clamp(56px, 8vw, 104px)',
                 lineHeight: 0.82,
                 color: 'var(--color-ink)',
                 userSelect: 'none',
@@ -222,7 +222,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 transition: prefersReducedMotion ? 'none' : 'transform 0.05s linear',
               }}
             >
-              BMI<span style={{ color: 'var(--color-accent)' }}>.</span>
+              Calculator<span style={{ color: 'var(--color-accent)' }}>.</span>
             </div>
           </div>
         </div>
@@ -283,7 +283,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             align-items: flex-start !important;
           }
           .hero-wordmark {
-            font-size: 80px !important;
+            font-size: 64px !important;
           }
         }
       `}</style>
