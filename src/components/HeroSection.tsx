@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface HeroSectionProps {
   onCalculateClick: () => void
@@ -14,7 +14,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     if (typeof window === 'undefined') return false
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches
   })
-  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -37,42 +36,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
     window.addEventListener('scroll', handleScroll, { passive: true })
 
-    // Pause video when hero is scrolled out of view to preserve resources
-    const heroEl = document.getElementById('hero')
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (videoRef.current) {
-            if (entry.isIntersecting && !mediaQuery.matches) {
-              videoRef.current.play().catch(() => {})
-            } else {
-              videoRef.current.pause()
-            }
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-
-    if (heroEl) observer.observe(heroEl)
-
     return () => {
       mediaQuery.removeEventListener('change', handleMotionChange)
       window.removeEventListener('scroll', handleScroll)
-      if (heroEl) observer.unobserve(heroEl)
     }
   }, [])
 
-  // Calculate clamped scroll-driven transforms
-  // Hero is ~100vh - 60px; progress 0 to 1 across first 600px
+  // Clamped scroll-driven transforms (progress 0 to 1 across first 600px)
   const progress = Math.min(Math.max(scrollY / 600, 0), 1)
 
-  const upperLineTranslateY = prefersReducedMotion ? 0 : -progress * 70
   const upperLineTranslateX = prefersReducedMotion ? 0 : progress * 24
-  const lowerLineTranslateY = prefersReducedMotion ? 0 : progress * 70
-  const lowerLineTranslateX = prefersReducedMotion ? 0 : progress * 24
-  const subjectTranslateY = prefersReducedMotion ? 0 : -progress * 80
-  const subjectScale = prefersReducedMotion ? 1 : 1 + progress * 0.06
+  const lowerLineTranslateX = prefersReducedMotion ? 0 : -progress * 24
 
   return (
     <section
@@ -147,7 +121,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             marginBottom: '24px',
           }}
         >
-          {/* Left Copy Stack (strictly <= 44vw on wide screens) */}
+          {/* Left Copy Stack */}
           <div
             className="hero-copy-stack"
             style={{
@@ -206,90 +180,45 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
-          {/* Right Signature Visual: Split-Wordmark Bracket with Anatomical Subject in the Gap */}
+          {/* Right Visual: stacked wordmark (no video / body image) */}
           <div
             className="hero-bracket-container"
             style={{
               position: 'relative',
               width: '540px',
-              height: '520px',
               display: 'flex',
-              alignItems: 'center',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
               justifyContent: 'center',
+              gap: '8px',
             }}
           >
-            {/* Upper Wordmark Line: 'FORM' (Stacking order ABOVE subject: z-index 4) */}
             <div
+              className="hero-wordmark"
               style={{
-                position: 'absolute',
-                top: '40px',
-                right: '10px',
                 fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(78px, 12vw, 154px)',
                 lineHeight: 0.82,
                 color: 'var(--color-ink)',
-                zIndex: 4,
                 userSelect: 'none',
                 pointerEvents: 'none',
-                transform: `translate3d(${upperLineTranslateX}px, ${upperLineTranslateY}px, 0)`,
+                transform: `translate3d(${upperLineTranslateX}px, 0, 0)`,
                 transition: prefersReducedMotion ? 'none' : 'transform 0.05s linear',
               }}
             >
               FORM
             </div>
 
-            {/* Cut-Out Subject in the Gap (Stacking order: z-index 2) */}
             <div
-              className="hero-subject-wrapper"
+              className="hero-wordmark"
               style={{
-                position: 'relative',
-                zIndex: 2,
-                height: '420px',
-                width: 'auto',
-                maxWidth: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transform: `translate3d(0, ${subjectTranslateY}px, 0) scale(${subjectScale})`,
-                transition: prefersReducedMotion ? 'none' : 'transform 0.05s linear',
-                filter: 'drop-shadow(0 18px 30px rgba(26,25,23,0.18))',
-              }}
-            >
-              {/* Loop video with multiply blend so white background melts seamlessly into warm ground */}
-              <video
-                ref={videoRef}
-                src={`${import.meta.env.BASE_URL}hero-video.mp4`}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                style={{
-                  height: '100%',
-                  width: 'auto',
-                  maxHeight: '440px',
-                  objectFit: 'contain',
-                  mixBlendMode: 'multiply',
-                  display: 'block',
-                }}
-                aria-label="Sculptural anatomical form turning head with subtle optical refractions"
-              />
-            </div>
-
-            {/* Lower Wordmark Line: 'BMI.' (Stacking order BENEATH subject: z-index 1) */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '30px',
-                right: '30px',
                 fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(78px, 12vw, 154px)',
                 lineHeight: 0.82,
                 color: 'var(--color-ink)',
-                zIndex: 1,
                 userSelect: 'none',
                 pointerEvents: 'none',
-                transform: `translate3d(${lowerLineTranslateX}px, ${lowerLineTranslateY}px, 0)`,
+                transform: `translate3d(${lowerLineTranslateX}px, 0, 0)`,
                 transition: prefersReducedMotion ? 'none' : 'transform 0.05s linear',
               }}
             >
@@ -351,13 +280,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           }
           .hero-bracket-container {
             width: 100% !important;
-            height: 340px !important;
-            align-self: center !important;
+            align-items: flex-start !important;
           }
-          .hero-subject-wrapper {
-            height: 280px !important;
-          }
-          .hero-bracket-container div[style*="font-size: clamp"] {
+          .hero-wordmark {
             font-size: 80px !important;
           }
         }
